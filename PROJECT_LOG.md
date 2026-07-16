@@ -12,11 +12,11 @@
 ### Objectives
 - [x] Understand system architecture
 - [x] Create folder structure
-- [x] Set up virtual environment & install libraries (4 of 10 packages pending — no internet; none blocking until Day 4+)
+- [x] Set up virtual environment & install libraries (All 10 packages installed)
 - [x] Review candidate datasets (preview — full strategy on Day 2)
 - [x] Explain full 15-day roadmap
 - [x] Initialize Git repository
-- [ ] Connect to remote GitHub repository (pending — user needs to create remote repo)
+- [x] Connect to remote GitHub repository (URL provided by user)
 
 ### Accomplishments
 - Created the complete project folder structure: `src/`, `data/raw/`, `data/processed/`, `models/`, `visualizations/`, `tests/`, `app/`
