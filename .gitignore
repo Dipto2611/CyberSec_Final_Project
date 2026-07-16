@@ -1,0 +1,45 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data (large files — track separately or via Git LFS)
+data/raw/*.csv
+data/raw/*.tsv
+data/raw/*.zip
+data/raw/*.gz
+
+# Model artifacts (large binary files)
+models/*.pkl
+models/*.joblib
+
+# Logs
+*.log
+
+# Environment variables
+.env
