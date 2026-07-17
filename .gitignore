@@ -33,6 +33,7 @@ data/raw/*.csv
 data/raw/*.tsv
 data/raw/*.zip
 data/raw/*.gz
+data/raw/*.parquet
 
 # Model artifacts (large binary files)
 models/*.pkl

@@ -91,3 +91,186 @@
 |------|----------|---------------------|-----------------|
 | Add `pyproject.toml` for modern Python packaging | Low | Low | More professional project setup |
 | Deploy to Streamlit Community Cloud | Medium | Low | Live demo link for resume/GitHub |
+
+---
+
+## Day 2 — Dataset Profiling
+**Date:** 2026-07-17
+**Status:** COMPLETE
+
+### Objectives
+- [x] Load the locked dataset and confirm its raw schema and row count
+- [x] Report exact Safe / Spam / Phishing class balance
+- [x] Profile raw text-length distribution per class
+- [x] Define a stratified subsampling strategy for daily iteration
+- [x] Document source facts, quality observations, and decisions in `DATASET_NOTES.md`
+
+### Accomplishments
+- Downloaded the locked dataset's two Parquet shards into `data/raw/` without modifying their contents.
+- Confirmed 365,448 rows with exactly two columns: `label` (`int64`) and `text` (string).
+- Confirmed source-label mapping: `0` = Ham/Safe, `1` = Phish/Phishing, and `2` = Spam.
+- Measured class balance: Safe 168,455 (46.095477%), Phishing 42,845 (11.723966%), and Spam 154,148 (42.180556%).
+- Flagged phishing as the minority class and documented its future evaluation implications.
+- Measured per-class raw character-length distributions, including the strong long-tail caused by very large message bodies.
+- Defined a deterministic, 60,000-row proportional stratified iteration sample with `random_state=42`; it retains 7,035 phishing examples.
+
+### Concepts Learned
+- **Class imbalance:** A minority class can be poorly detected even when overall accuracy is high; phishing must be assessed with its own precision, recall, and F1.
+- **Stratification:** Sampling or splitting while preserving class proportions prevents rare classes from being accidentally underrepresented.
+- **Distribution profiling:** Median and percentiles describe skewed text lengths better than an average alone, especially for full email bodies and forwarded threads.
+- **Raw-data immutability:** Profiling observes the source dataset; cleaning is deferred so every later transformation remains explicit and reproducible.
+
+### Files Created/Modified
+| File | Action | Purpose |
+|------|--------|---------|
+| `data/raw/0000.parquet` | Downloaded | Raw dataset shard 1 |
+| `data/raw/0001.parquet` | Downloaded | Raw dataset shard 2 |
+| `.gitignore` | Updated | Exclude immutable raw Parquet shards from ordinary Git tracking |
+| `DATASET_NOTES.md` | Updated | Source, schema, balance, length profile, and sampling plan |
+| `PROJECT_LOG.md` | Updated | Day 2 engineering record |
+
+### Decision: Preserve native three-class labels and map them only for display
+- Date: 2026-07-17
+- Decision: Keep `0`/`1`/`2` as raw model labels and map them to Safe/Phishing/Spam only in human-facing output.
+- Reason: The locked source is natively three-class, so this retains source traceability and avoids an unnecessary raw-data transformation.
+- Alternatives considered: Immediate re-encoding; merging further datasets.
+- Trade-offs: The numeric-to-display mapping must be consistently maintained.
+- Impact on future development: Training uses numeric labels; the dashboard translates them for users.
+
+### Decision: Use a 60,000-row proportional stratified iteration sample
+- Date: 2026-07-17
+- Decision: Use a fixed-seed 60,000-row proportional stratified sample for repeated development work and reserve the full cleaned corpus for final training/evaluation.
+- Reason: It is representative, reproducible, faster to iterate on, and retains 7,035 phishing examples.
+- Alternatives considered: Full-data iteration; unstratified sampling; class-balanced sampling.
+- Trade-offs: Development metrics are estimates, but class prevalence remains realistic.
+- Impact on future development: Days 4-5 use stratified sampling and report per-class results; Day 6 evaluates the final artifact on the full cleaned dataset.
+
+### Challenges Encountered
+- The raw-data directory was empty at session start. A first mirror download produced a zero-byte redirected artifact, which was detected before use and replaced with a verified, redirect-aware download.
+- Two raw text values are missing, and extreme length outliers exist. No cleaning was done; both observations are explicitly deferred to Day 3.
+
+### Suggested Improvements
+- On Day 3, record the precise missing-value and duplicate-handling policy before applying it.
+- On Day 4, ensure every split is stratified and every report includes phishing-specific precision, recall, and F1.
+
+### What's Next
+- **Day 3:** Clean the raw corpus, standardize/validate labels, implement the reusable text preprocessing pipeline, and add its pytest coverage.
+
+### Daily Reflection & Engineering Review
+1. **What did we accomplish today?**
+   We obtained and profiled the locked three-class email dataset, verified its schema and 365,448-row size, quantified class imbalance, characterized text lengths, and defined a reproducible iteration-data strategy.
+
+2. **What engineering decisions did we make today?**
+   We preserved numeric source labels and use a display-only mapping; we selected a 60,000-row proportional stratified iteration sample with seed 42. Both choices protect traceability, reproducibility, and representative phishing prevalence.
+
+3. **What risks or challenges should we watch for in future milestones?**
+   Phishing is only 11.724% of records, so accuracy can conceal weak phishing recall. Two missing texts and multi-million-character outliers require intentional Day 3 handling; large raw text also makes full-corpus experiments slower and more memory-intensive.
+
+4. **What interview, presentation, or viva questions could arise from today's work?**
+   - *Why stratify?* To preserve the minority phishing proportion in samples and splits so training and evaluation remain representative.
+   - *Why is accuracy insufficient here?* A model can score well by predicting the majority classes while missing phishing; per-class precision, recall, and F1 expose that failure.
+   - *Why use the median text length?* The corpus is right-skewed by very long email bodies, which pull the mean upward; the median better represents a typical message.
+   - *Why not clean immediately?* Separating profiling from cleaning keeps the source immutable, makes transformations auditable, and prevents hidden data-loss decisions.
+
+5. **Are we still aligned with the official 10-day project roadmap?**
+   Yes. Day 2 was limited to loading, profiling, imbalance analysis, and documentation. No preprocessing, feature engineering, training, or UI work was started. The project is ready for Day 3 after approval.
+
+### Day 2 Completion Addendum — Verified Dataset and Repository Review
+
+The Day 2 profile was independently rechecked before completion. The combined Parquet shards
+contain 365,448 rows and two columns (`label`, `text`), matching the local
+`D:\smsdataset.csv` exactly in shape, columns, dtypes, row order, row hashes, class counts,
+missingness, and duplicate count. The Parquet files therefore contain the same data as the CSV;
+the project did not rewrite either source. The shards are documented as downloaded from the
+Hugging Face mirror of the locked dataset.
+
+Additional verified findings:
+
+- Pandas memory usage is 635,170,939 bytes (approximately 605.75 MiB); Parquet storage is
+  310,282,893 bytes (approximately 295.91 MiB).
+- There are 84,490 duplicate full rows, 84,498 duplicate text values, and eight conflicting
+  text-label groups involving 20 rows.
+- There are two missing texts, no exact empty strings, and no non-missing whitespace-only texts.
+- Text lengths are strongly right-skewed, with maximums of 11,510,306 (Safe), 4,279,526
+  (Phishing), and 144,087 (Spam) characters.
+
+The approved repository protection fix was applied: `.gitignore` now excludes
+`data/raw/*.parquet`, preventing approximately 296 MiB of immutable raw shards from being
+accidentally committed to ordinary Git history.
+
+### Decision: Protect raw Parquet shards from accidental Git tracking
+- Date: 2026-07-17
+- Decision: Add `data/raw/*.parquet` to `.gitignore`.
+- Reason: The raw shards are large immutable inputs and should not inflate normal Git history.
+- Alternatives considered: Track directly; use Git LFS; leave the rule unchanged.
+- Trade-offs: A fresh clone must obtain the raw data through the documented source process; Git LFS
+  would add setup and hosting requirements outside Day 2.
+- Impact on future development: Raw data remains local and reproducible through documented
+  provenance while project documentation stays version-controlled.
+
+### Decision: Treat CSV and Parquet as equivalent verified source copies
+- Date: 2026-07-17
+- Decision: Continue profiling from the Parquet shards after read-only equivalence verification
+  against `D:\smsdataset.csv`.
+- Reason: Schema, values, row order, hashes, counts, missingness, and duplicate counts all match.
+- Alternatives considered: Re-profile only the CSV; rewrite either source; change datasets.
+- Trade-offs: Keeping two verified copies uses storage and requires provenance notes, but preserves
+  an independent audit check and efficient columnar access.
+- Impact on future development: Day 3 will create any cleaned derivative separately and preserve
+  both raw sources unchanged.
+
+### Day 2 Definition of Done Verification
+
+- [x] Today's profiling and engineering-review objectives are complete.
+- [x] Work remains within the agreed linear architecture; no architecture was changed.
+- [x] Code remains clean, modular, and readable; no production code was added or altered.
+- [x] Existing functionality remains intact; no executable files were modified.
+- [x] Relevant tests are not applicable on Day 2 because the AGENTS.md testing checkpoint
+  begins on Day 3; no test suite was bypassed.
+- [x] Day 2 edge cases and risks were considered: missing values, duplicates, conflicting labels,
+  empty messages, long-tail lengths, class imbalance, memory, and provenance.
+- [x] `PROJECT_LOG.md` and `DATASET_NOTES.md` contain the verified findings and decisions.
+- [x] Meaningful technical decisions use the Engineering Decision Register format.
+- [x] The repository is stable and committable; raw Parquet files are now ignored by Git.
+- [x] A concise end-of-day summary and the five reflection answers are recorded below.
+- [x] No cleaning, preprocessing, feature engineering, splitting, model training, or Day 3 work
+  was performed.
+
+### Daily Reflection — Final Day 2 Review
+
+1. **What did we accomplish today?** We verified the locked dataset end to end, profiled its
+   schema, classes, missingness, duplicates, empty messages, text lengths, memory/storage, and
+   anomalies; confirmed the Parquet shards exactly match `D:\smsdataset.csv`; protected raw
+   Parquet files from Git tracking; and documented the engineering review.
+
+2. **What engineering decisions did we make today?** We preserved native numeric labels with a
+   display mapping, recommended (but did not implement) a 60,000-row proportional stratified
+   iteration subset, kept the Parquet representation as the local profiling source after exact
+   CSV equivalence verification, and excluded raw Parquet shards from ordinary Git tracking.
+
+3. **What risks or challenges should we watch for in future milestones?** Phishing is only
+   11.724%, so accuracy can hide poor phishing recall. Day 3 must explicitly decide how to handle
+   two missing texts, 84,490 duplicate rows, eight conflicting text-label groups, and extreme
+   length outliers. Full-corpus vectorization may exceed the approximately 606 MiB pandas
+   baseline, and email-specific HTML/headers/URLs may complicate preprocessing.
+
+4. **What interview, presentation, or viva questions could arise?**
+   - *Why stratify?* To preserve phishing prevalence in samples and splits.
+   - *Why not use accuracy alone?* Minority-class failures can be hidden by majority-class accuracy;
+     per-class precision, recall, and F1 are safer.
+   - *Why profile before cleaning?* It separates measurement from irreversible data decisions and
+     keeps the raw source auditable.
+   - *How did you verify CSV and Parquet equivalence?* By comparing schema, values, row order,
+     hashes, class counts, missingness, and duplicate counts without writing either file.
+   - *Why ignore Parquet in Git?* The immutable shards are approximately 296 MiB and should not
+     inflate ordinary repository history.
+
+5. **Are we still aligned with the official 10-day project roadmap?** Yes. Only Day 2 profiling,
+   engineering review, provenance verification, and documentation were completed. No cleaning,
+   preprocessing, feature engineering, splitting, training, or Day 3 work was performed. Day 2
+   satisfies the Definition of Done and the project is ready for Day 3, pending your approval.
+
+### What's Next
+
+- **Day 3 (approval required):** Clean the raw corpus, make explicit missing/duplicate/label/outlier
+  policies, implement the reusable preprocessing pipeline, and add its tests.
