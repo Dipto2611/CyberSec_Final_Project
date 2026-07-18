@@ -3,95 +3,73 @@ from pathlib import Path
 
 import streamlit as st
 
-# =====================================================
-# Add Project Root to Python Path
-# =====================================================
+# ==========================================================
+# Project Root
+# ==========================================================
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+# ==========================================================
+# Imports
+# ==========================================================
+
 from src.predictor import Predictor
 
-# =====================================================
+from app.styles import load_css
+
+from app.ui_helpers import (
+    show_header,
+    show_sidebar,
+    show_enterprise_assessment,
+    show_metric_cards,
+    show_threat_indicators,
+    show_recommendations,
+    show_summary,
+    show_download_button,
+)
+
+# ==========================================================
 # Page Configuration
-# =====================================================
+# ==========================================================
+
 st.set_page_config(
     page_title="Enterprise AI Security Center",
     page_icon="🛡️",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="collapsed",
 )
 
-# =====================================================
-# Hide Streamlit Branding
-# =====================================================
-hide_streamlit_style = """
-<style>
+# ==========================================================
+# Load Theme
+# ==========================================================
 
-#MainMenu {
-    visibility: hidden;
-}
+load_css()
 
-footer {
-    visibility: hidden;
-}
+# ==========================================================
+# Predictor
+# ==========================================================
 
-header {
-    visibility: hidden;
-}
-
-</style>
-"""
-
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
-# =====================================================
-# Load Predictor
-# =====================================================
 predictor = Predictor()
 
-# =====================================================
+# ==========================================================
 # Sidebar
-# =====================================================
-with st.sidebar:
+# ==========================================================
 
-    st.title("🛡 Enterprise AI")
+show_sidebar()
 
-    st.markdown("---")
-
-    st.success("System Status\n\nOnline")
-
-    st.metric("Model", "Logistic Regression")
-    st.metric("Classes", "3")
-    st.metric("Threat Engine", "Active")
-    st.metric("Version", "3.0")
-
-    st.markdown("---")
-
-    st.caption("Built With")
-
-    st.write("• Python")
-    st.write("• Scikit-Learn")
-    st.write("• Streamlit")
-    st.write("• NLP")
-    st.write("• Explainable AI")
-
-# =====================================================
+# ==========================================================
 # Header
-# =====================================================
-st.title("🛡️ Enterprise AI Security Center")
+# ==========================================================
 
-st.caption(
-    "AI-Powered Phishing & Spam Detection Platform | "
-    "Machine Learning + Explainable Threat Analysis"
-)
+show_header()
 
-st.divider()
-
-# =====================================================
+# ==========================================================
 # Input Section
-# =====================================================
+# ==========================================================
+
 st.subheader("📧 Email / Message Analysis")
 
 user_input = st.text_area(
@@ -102,23 +80,26 @@ Example:
 
 URGENT!
 
-Verify your SBI account immediately.
+Your SBI account has been temporarily locked.
+
+Verify immediately.
 
 https://fake-bank.xyz
-"""
+""",
 )
 
 analyze = st.button(
     "🔍 Analyze Message",
+    type="primary",
     use_container_width=True,
-    type="primary"
 )
 
 st.divider()
 
-# =====================================================
+# ==========================================================
 # Main Logic
-# =====================================================
+# ==========================================================
+
 if analyze:
 
     if not user_input.strip():
@@ -131,104 +112,87 @@ if analyze:
 
             report = predictor.predict(user_input)
 
-        prediction = report["prediction"]
-        confidence = report["confidence"]
-        risk_score = report["risk_score"]
-        threat_level = report["threat_level"]
-        indicators = report["detected_indicators"]
-        recommendations = report["recommendations"]
-        summary = report["summary"]
-
         st.success("✅ Analysis Completed")
 
-        # =====================================================
-        # Dashboard
-        # =====================================================
-        st.markdown("## 📊 Analysis Dashboard")
+        # ==========================================
+        # Enterprise Assessment
+        # ==========================================
 
-        col1, col2, col3, col4 = st.columns(4)
-
-        # Prediction
-        with col1:
-            st.metric(
-                label="Prediction",
-                value=prediction
-            )
-
-        # Confidence
-        with col2:
-            st.metric(
-                label="Confidence",
-                value=f"{confidence:.2f}%"
-            )
-
-        # Threat Level
-        with col3:
-
-            color = {
-                "LOW": "🟢",
-                "MEDIUM": "🟡",
-                "HIGH": "🔴",
-                "CRITICAL": "🚨"
-            }.get(threat_level, "⚪")
-
-            st.metric(
-                label="Threat Level",
-                value=f"{color} {threat_level}"
-            )
-
-        # Risk Score
-        with col4:
-            st.metric(
-                label="Risk Score",
-                value=f"{risk_score}/100"
-            )
+        show_enterprise_assessment(report)
 
         st.divider()
 
-        # =====================================================
+        # ==========================================
+        # Dashboard
+        # ==========================================
+
+        st.subheader("📊 Analysis Dashboard")
+
+        show_metric_cards(report)
+
+        st.divider()
+
+        # ==========================================
         # Threat Intelligence
-        # =====================================================
+        # ==========================================
+
         left, right = st.columns(2)
 
-        # Threat Indicators
         with left:
 
-            st.subheader("🚨 Threat Indicators")
+            show_threat_indicators(report)
 
-            if indicators:
-
-                for item in indicators:
-                    st.markdown(f"✅ {item}")
-
-            else:
-                st.success("No suspicious indicators detected.")
-
-        # Recommendations
         with right:
 
-            st.subheader("🛡️ Security Recommendations")
-
-            for item in recommendations:
-                st.markdown(f"• {item}")
+            show_recommendations(report)
 
         st.divider()
 
-        # =====================================================
+        # ==========================================
         # Executive Summary
-        # =====================================================
-        st.subheader("📄 Executive Summary")
+        # ==========================================
 
-        st.success(summary)
+        show_summary(report)
 
-        st.download_button(
-            label="📄 Download Analysis Report",
-            data=str(report),
-            file_name="analysis_report.txt",
-            mime="text/plain",
-            use_container_width=True
-        )
+        st.divider()
+
+        # ==========================================
+        # Download Report
+        # ==========================================
+
+        show_download_button(report)
 
 else:
 
-    st.info("Enter a message above and click **Analyze Message**.")
+    st.info(
+        """
+### 👋 Welcome
+
+This platform uses Machine Learning and Explainable AI
+to classify emails/messages into:
+
+✅ Safe
+
+⚠ Spam
+
+🚨 Phishing
+
+---
+
+### Features
+
+• Enterprise Risk Assessment
+
+• Threat Intelligence
+
+• Explainable AI
+
+• Security Recommendations
+
+• Executive Summary
+
+• Downloadable Report
+
+Paste a message above and click **Analyze Message**.
+"""
+    )
