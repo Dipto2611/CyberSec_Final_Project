@@ -274,3 +274,299 @@ accidentally committed to ordinary Git history.
 
 - **Day 3 (approval required):** Clean the raw corpus, make explicit missing/duplicate/label/outlier
   policies, implement the reusable preprocessing pipeline, and add its tests.
+
+
+---
+
+# Day 3 — Data Cleaning & NLP Preprocessing
+
+**Date:** 2026-07-18
+
+**Status:** COMPLETE
+
+---
+
+## Objectives
+
+- [x] Clean the raw dataset
+- [x] Handle missing values
+- [x] Remove duplicate records
+- [x] Preserve valid labels
+- [x] Build a reusable NLP preprocessing pipeline
+- [x] Create preprocessing tests
+
+---
+
+## Accomplishments
+
+- Removed duplicate rows from the raw dataset.
+- Handled missing and whitespace-only messages safely.
+- Generated a cleaned dataset for model development.
+- Implemented a reusable `TextPreprocessor` class.
+- Preserved phishing-related security indicators such as URLs, email addresses and numeric tokens.
+- Added preprocessing normalization including lowercase conversion, punctuation cleanup, stopword removal and stemming.
+- Designed the preprocessing module to be reusable inside both training and future inference pipelines.
+- Implemented automated preprocessing tests covering multiple edge cases.
+
+---
+
+## Key Dataset Changes
+
+- Original rows: **365,448**
+- Cleaned rows: **280,955**
+- Missing rows removed: **2**
+- Duplicate rows removed: **84,490**
+- Invalid labels found: **0**
+
+---
+
+## Engineering Decisions
+
+### Decision
+
+Use a reusable preprocessing class instead of embedding text cleaning directly inside the training script.
+
+### Reason
+
+A reusable preprocessing component makes future deployment, testing and inference significantly easier while avoiding duplicated code.
+
+---
+
+## Challenges
+
+- Preserving phishing indicators without over-cleaning.
+- Balancing normalization with security signal preservation.
+- Ensuring preprocessing remains deterministic.
+
+---
+
+## Files Created / Updated
+
+- src/preprocessing.py
+- tests/test_preprocessing.py
+- scripts/run_days_3_6.py
+
+---
+
+## Definition of Done
+
+- [x] Cleaning completed
+- [x] Preprocessing pipeline implemented
+- [x] Unit tests added
+- [x] Dataset ready for feature engineering
+
+---
+
+# Day 4 — Feature Engineering & Baseline Modeling
+
+**Date:** 2026-07-18
+
+**Status:** COMPLETE
+
+---
+
+## Objectives
+
+- [x] Generate TF-IDF features
+- [x] Split dataset
+- [x] Train baseline model
+
+---
+
+## Accomplishments
+
+- Created a TF-IDF feature space with **50,000** features.
+- Generated stratified train and test datasets.
+- Prepared reusable vectorizer for deployment.
+- Trained baseline machine learning models.
+
+---
+
+## Dataset Split
+
+Development Dataset
+
+- 60,000 samples
+
+Training
+
+- 48,000 samples
+
+Testing
+
+- 12,000 samples
+
+---
+
+## Engineering Decisions
+
+Selected TF-IDF because it provides a strong sparse representation while remaining lightweight and highly effective for classical NLP models.
+
+---
+
+## Files Updated
+
+- src/model.py
+- scripts/run_days_3_6.py
+
+---
+
+## Definition of Done
+
+- [x] TF-IDF completed
+- [x] Dataset split completed
+- [x] Baseline model trained
+
+---
+
+# Day 5 — Model Training & Selection
+
+**Date:** 2026-07-18
+
+**Status:** COMPLETE
+
+---
+
+## Objectives
+
+- [x] Train multiple classifiers
+- [x] Compare performance
+- [x] Select production model
+
+---
+
+## Models Trained
+
+- Multinomial Naive Bayes
+- Logistic Regression
+- Random Forest
+
+---
+
+## Final Results
+
+| Model | Accuracy |
+|--------|----------|
+| MultinomialNB | 91.58% |
+| **Logistic Regression** | **94.86%** |
+| Random Forest | 91.29% |
+
+---
+
+## Final Production Model
+
+**Logistic Regression**
+
+Reasons
+
+- Highest overall accuracy
+- Highest Macro F1
+- Strong phishing recall
+- Best overall balance
+
+---
+
+## Engineering Decision
+
+Use Logistic Regression as the production model for all future development.
+
+---
+
+## Definition of Done
+
+- [x] Three models compared
+- [x] Best model selected
+
+---
+
+# Day 6 — Evaluation & Artifact Generation
+
+**Date:** 2026-07-18
+
+**Status:** COMPLETE
+
+---
+
+## Objectives
+
+- [x] Evaluate final model
+- [x] Generate reports
+- [x] Save deployment artifacts
+
+---
+
+## Evaluation Summary
+
+Final model evaluated using:
+
+- Accuracy
+- Precision
+- Recall
+- Macro F1
+- Weighted F1
+- Confusion Matrix
+
+---
+
+## Confusion Matrix Summary
+
+Safe
+
+- Correct: **5292**
+
+Phishing
+
+- Correct: **1712**
+
+Spam
+
+- Correct: **4379**
+
+Overall performance demonstrates strong separation across all three classes with relatively few Safe ↔ Phishing confusions and the largest remaining confusion occurring between Spam and Phishing, which is expected because both classes often share promotional and urgency-related language.
+
+---
+
+## Generated Outputs
+
+Saved:
+
+- final_model.joblib
+- final_pipeline.joblib
+- tfidf_vectorizer.joblib
+- model_metadata.joblib
+- confusion_matrix.png
+- model_comparison.csv
+- model_metrics.json
+- phishing_false_negatives.csv
+- manual_predictions.json
+
+---
+
+## Engineering Decisions
+
+Saved the complete preprocessing + vectorizer + model pipeline to simplify future deployment into the Streamlit application.
+
+---
+
+## Project Status
+
+Current Progress
+
+- ✅ Day 1 Complete
+- ✅ Day 2 Complete
+- ✅ Day 3 Complete
+- ✅ Day 4 Complete
+- ✅ Day 5 Complete
+- ✅ Day 6 Complete
+
+Next Milestone
+
+- Day 7 — Threat Analysis Engine
+
+---
+
+## Daily Reflection
+
+Today the project transitioned from a data-processing prototype into a deployable machine learning system.
+
+The training pipeline is fully operational, the best model has been selected through objective evaluation, reusable artifacts have been generated, and the repository is now prepared for application-layer development in the next milestone.

@@ -1,0 +1,13 @@
+{
+  "input_rows": 365448,
+  "missing_text_rows": 2,
+  "whitespace_only_rows": 1,
+  "invalid_label_rows": 0,
+  "duplicate_rows_removed": 84490,
+  "output_rows": 280955,
+  "output_class_counts": {
+    "0": 128206,
+    "1": 42844,
+    "2": 109905
+  }
+}

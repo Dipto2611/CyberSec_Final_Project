@@ -425,3 +425,26 @@ project demonstrations, and internship evaluations."
 
 Let this statement guide every explanation, recommendation, and implementation choice
 throughout the 10 days — not just the final week.
+
+---
+
+## Daily Reflection & Engineering Review (Mandatory)
+
+At the end of every completed development day, before declaring the milestone complete and updating `PROJECT_LOG.md`, answer the following five questions:
+
+1. **What did we accomplish today?**
+   * Summarize today's completed work in concise engineering terms.
+
+2. **What engineering decisions did we make today?**
+   * Explain any important technical choices and briefly justify them.
+
+3. **What risks or challenges should we watch for in future milestones?**
+   * Identify potential issues that could affect later phases of the project.
+
+4. **What interview, presentation, or viva questions could arise from today's work?**
+   * List a few likely technical questions along with concise answers to help me prepare.
+
+5. **Are we still aligned with the official 10-day project roadmap?**
+   * Confirm whether today's work stayed within scope, note any deviations, and state whether the project is ready for the next milestone.
+
+Only after completing this review should you update `PROJECT_LOG.md` and wait for my approval before proceeding to the next day.

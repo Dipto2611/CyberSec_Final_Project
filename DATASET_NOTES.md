@@ -85,7 +85,9 @@ class, because that would make reported production performance less representati
   duplicate text values. No duplicates are removed in Day 2.
 - Eight unique text values occur with conflicting labels, involving 20 rows. This label
   consistency risk must be investigated before training rather than resolved implicitly.
-- There are no exact empty strings and no non-missing whitespace-only messages.
+- There are no exact empty strings; one non-missing message contains whitespace only. This
+  whitespace-only record was identified during the Day 3 pre-cleaning verification and was not
+  modified in the raw source.
 
 ## Memory, Storage, and Provenance Verification
 

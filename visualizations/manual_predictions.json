@@ -1,0 +1,21 @@
+{
+  "model": "LogisticRegression",
+  "examples": [
+    {
+      "text": "URGENT: verify your bank account at https://secure-example.com/login.",
+      "predicted_label": 2
+    },
+    {
+      "text": "Congratulations, claim your free prize by replying now.",
+      "predicted_label": 2
+    },
+    {
+      "text": "Team meeting is scheduled for tomorrow at 10 AM in room 204.",
+      "predicted_label": 0
+    },
+    {
+      "text": "Your password expires today; confirm it at support@example.com.",
+      "predicted_label": 2
+    }
+  ]
+}
