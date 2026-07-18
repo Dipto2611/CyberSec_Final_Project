@@ -570,3 +570,171 @@ Next Milestone
 Today the project transitioned from a data-processing prototype into a deployable machine learning system.
 
 The training pipeline is fully operational, the best model has been selected through objective evaluation, reusable artifacts have been generated, and the repository is now prepared for application-layer development in the next milestone.
+
+
+---
+
+# Day 7 – Explainable AI Threat Analysis & Backend Integration
+**Date:** 18 July 2026
+
+## Objective
+Implement an explainable AI layer on top of the trained machine learning model to provide transparent threat analysis, risk scoring, and actionable security recommendations.
+
+---
+
+## Completed Tasks
+
+### 1. Threat Analysis Engine
+- Created `src/threat_analyzer.py`.
+- Designed a modular `ThreatAnalyzer` class.
+- Implemented rule-based threat analysis independent of the ML model.
+
+---
+
+### 2. Threat Detection Modules
+
+Implemented the following detection modules:
+
+- URL Detection
+- Email Address Detection
+- Urgent Language Detection
+- Credential Request Detection
+- Financial / Banking Keyword Detection
+- Suspicious Formatting Detection
+
+Each detector independently identifies suspicious characteristics within the input message.
+
+---
+
+### 3. Risk Assessment Engine
+
+Implemented a rule-based scoring system.
+
+Risk indicators contribute weighted scores to calculate the overall threat score.
+
+Threat Levels:
+
+- LOW
+- MEDIUM
+- HIGH
+
+The risk score is automatically generated based on detected indicators.
+
+---
+
+### 4. Security Recommendations
+
+Implemented contextual security recommendations based on:
+
+- detected indicators
+- calculated threat level
+
+Recommendations include:
+
+- Avoid clicking suspicious links
+- Never share passwords or OTPs
+- Verify sender through official channels
+- Report suspicious emails
+
+---
+
+### 5. Explainable AI Report
+
+The analyzer now produces a complete security report containing:
+
+- Model Prediction
+- Prediction Confidence
+- Risk Score
+- Threat Level
+- Detected Indicators
+- Security Recommendations
+- Threat Summary
+
+---
+
+### 6. Backend Integration
+
+Created:
+
+src/predictor.py
+
+Implemented the Predictor class.
+
+Integrated:
+
+Input Message
+        ↓
+Preprocessing
+        ↓
+TF-IDF Vectorizer
+        ↓
+Logistic Regression Model
+        ↓
+Prediction + Confidence
+        ↓
+Threat Analyzer
+        ↓
+Enterprise Security Report
+
+The backend now performs end-to-end inference using a single prediction interface.
+
+---
+
+### 7. Project Refactoring
+
+Removed unused module:
+
+src/recommendation_engine.py
+
+Reason:
+Recommendation generation is now handled directly inside the Threat Analyzer to avoid duplicate functionality.
+
+---
+
+### 8. Validation
+
+Successfully tested:
+
+- Threat Analyzer independently
+- Predictor integration
+- End-to-end backend inference
+
+Sample execution successfully generated:
+
+- Prediction
+- Confidence
+- Risk Score
+- Threat Level
+- Threat Indicators
+- Security Recommendations
+
+without runtime errors.
+
+---
+
+## Deliverables
+
+✔ threat_analyzer.py
+
+✔ predictor.py
+
+✔ Enterprise threat report generation
+
+✔ Rule-based explainable AI
+
+✔ Risk scoring engine
+
+✔ Recommendation engine
+
+✔ Backend integration
+
+---
+
+## Next Phase
+
+Day 8
+
+- Build Streamlit Web Interface
+- Connect Predictor with UI
+- Display prediction report visually
+- Improve user experience
