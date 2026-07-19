@@ -1,127 +1,128 @@
+
 # 🛡️ Enterprise AI-Powered Phishing & Spam Detection System
 
-> **Intelligent Email Security using Natural Language Processing and Machine Learning**
+<p align="center">
+  <b>Intelligent Email Security using Natural Language Processing, Machine Learning, and Rule-Based Threat Intelligence</b>
+</p>
 
-![Python](https://img.shields.io/badge/Python-3.11%2B-blue)
-![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange)
-![NLP](https://img.shields.io/badge/NLP-TF--IDF-green)
-![Status](https://img.shields.io/badge/Project%20Status-Days%201--6%20Complete-success)
-![License](https://img.shields.io/badge/License-MIT-lightgrey)
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11%2B-blue?logo=python" />
+  <img src="https://img.shields.io/badge/Scikit--Learn-ML-orange?logo=scikitlearn" />
+  <img src="https://img.shields.io/badge/Streamlit-Dashboard-red?logo=streamlit" />
+  <img src="https://img.shields.io/badge/ReportLab-PDF-lightgrey" />
+  <img src="https://img.shields.io/badge/Status-Feature%20Complete-success" />
+</p>
 
 ---
 
 ## 📌 Overview
 
-This project is an end-to-end cybersecurity and machine learning application for classifying emails/messages into **Safe**, **Spam**, and **Phishing** categories.
+This project is an **enterprise-inspired cybersecurity application** that analyzes emails/messages and classifies them into **Safe, Spam, and Phishing**. It combines:
 
-The goal is not only to predict the label, but also to build a **professional, reproducible, and explainable ML pipeline** that can later be wrapped inside a Streamlit dashboard and extended with threat analysis and security recommendations.
+- **Machine Learning** for text classification
+- **Rule-Based Threat Intelligence** for security indicators
+- **Enterprise Decision Logic** for final assessment
+- **Streamlit UI** for interactive analysis
+- **PDF Report Generation** for professional output
 
-The project was designed with a modular architecture so that every stage can be tested, audited, and improved independently:
-
-- **Data profiling** to understand the source corpus
-- **Data cleaning** to handle duplicates, missing values, and label consistency
-- **NLP preprocessing** to normalize raw text while preserving security-relevant signals
-- **TF-IDF feature engineering** for sparse text representation
-- **Model comparison** across multiple classifiers
-- **Automatic model selection** based on phishing-focused metrics
-- **Saved inference pipeline** for reliable deployment later
+Unlike a simple spam filter, this system is designed to behave more like a **real security product**: it does not just predict a label; it also explains *why* the message was flagged, assigns a risk score, and generates actionable recommendations.
 
 ---
 
-## 🎯 Project Goals
+## ✨ Key Features
 
-- Detect Safe, Spam, and Phishing messages.
-- Preserve phishing-specific signals such as URLs, emails, numbers, and urgency language.
-- Compare multiple machine learning algorithms fairly.
-- Select the best production model using measurable criteria.
-- Save a reusable inference pipeline for future deployment.
-- Document every important engineering decision.
-- Build a GitHub-ready portfolio project suitable for internship review and technical interviews.
-
----
-
-## ✨ Implemented Features
-
-### ✅ Completed (Days 1–6)
-
-- Project structure and environment setup
-- Git repository initialization
-- Dataset profiling and documentation
-- Exact CSV/Parquet equivalence verification
-- Data cleaning pipeline
-- Reusable NLP preprocessing transformer
-- Stratified development sampling strategy
-- TF-IDF vectorization
-- Training and comparison of three models:
-  - Multinomial Naive Bayes
-  - Logistic Regression
-  - Random Forest
-- Per-class evaluation metrics
-- Confusion matrix generation
-- False-negative inspection for phishing messages
-- Saved model artifact generation
-- Saved TF-IDF vectorizer
-- Saved full inference pipeline
-- Saved model metadata
-- Testing for preprocessing edge cases
-
-### 🚧 Planned (Days 7–10)
-
-- Threat analysis engine
-- Security recommendation engine
-- Streamlit dashboard
-- Confidence display / threat severity summary
-- Final polish and presentation readiness
+- 🧠 **3-class classification**: Safe / Spam / Phishing
+- ⚠️ **Threat analyzer** with URL, credential, urgency, and financial keyword detection
+- 🎯 **Enterprise decision engine** for final security assessment
+- 📊 **Confidence and risk score** display
+- 🛡️ **Threat level** mapping: Low / Medium / High / Critical
+- 📋 **Threat indicators** and **security recommendations**
+- 📝 **Executive summary** for human-readable interpretation
+- 🌐 **Modern Streamlit dashboard**
+- 📄 **Professional PDF report export**
+- 🧪 **Test cases** for safe, spam, phishing, and confusing edge cases
+- 💾 **Saved inference pipeline** for reproducible deployment
+- 🧰 **Modular codebase** with clean separation of concerns
 
 ---
 
 ## 🏗️ System Architecture
 
-```mermaid
-flowchart TD
-    A[Raw Dataset] --> B[Data Cleaning]
-    B --> C[NLP Preprocessing]
-    C --> D[TF-IDF Vectorization]
-    D --> E[Model Training]
-    E --> F[Model Evaluation]
-    F --> G[Best Model Selection]
-    G --> H[Saved Inference Pipeline]
-    H --> I[Threat Analysis Engine]
-    I --> J[Security Recommendation Engine]
-    J --> K[Streamlit Dashboard]
+```text
+User Message
+    │
+    ▼
+Preprocessing
+    │
+    ▼
+Machine Learning Model
+    │
+    ▼
+Threat Analyzer
+    │
+    ▼
+Decision Engine
+    │
+    ▼
+Enterprise Report
+    │
+    ▼
+Streamlit Dashboard
+    │
+    ▼
+PDF Export
 ```
 
 ---
 
-## 🧠 Machine Learning Pipeline
+## 🔁 End-to-End Workflow
 
-```mermaid
-flowchart TD
-    A[Raw Parquet Shards] --> B[Schema & Class Profiling]
-    B --> C[Missing Value Handling]
-    C --> D[Duplicate Removal]
-    D --> E[Text Normalization]
-    E --> F[TF-IDF Feature Matrix]
-    F --> G[Train/Test Split]
-    G --> H[Model Training]
-    H --> I[Evaluation]
-    I --> J[Production Model Selection]
-    J --> K[Saved Model + Pipeline]
-```
+1. User enters an email or message.
+2. The ML model predicts **Safe / Spam / Phishing**.
+3. The threat engine detects suspicious indicators.
+4. The decision engine merges ML and threat signals.
+5. The dashboard shows:
+   - Prediction
+   - Confidence
+   - Risk score
+   - Threat level
+   - Final assessment
+   - Recommendations
+6. A PDF report can be downloaded for review or submission.
 
 ---
 
-## 📂 Repository Structure
+## 🧠 Tech Stack
+
+| Category | Technologies |
+|---|---|
+| Language | Python |
+| Machine Learning | Scikit-learn |
+| NLP | TF-IDF Vectorizer |
+| Data Handling | Pandas, NumPy |
+| Visualization | Matplotlib |
+| UI | Streamlit |
+| PDF | ReportLab |
+| Serialization | Joblib |
+| Testing | Pytest |
+
+---
+
+## 📂 Project Structure
 
 ```text
 CyberSec_Final_Project/
-├── .agents/
 ├── app/
+│   ├── streamlit_app.py
+│   ├── pdf_generator.py
+│   ├── ui_helpers.py
+│   └── styles.py
+├── backend/
 ├── data/
 │   ├── raw/
 │   └── processed/
 ├── models/
-│   └── README.md
+├── notebooks/
 ├── scripts/
 ├── src/
 ├── tests/
@@ -137,67 +138,66 @@ CyberSec_Final_Project/
 ## 📊 Dataset
 
 ### Dataset Used
-
 **The Biggest Spam Ham Phish Email Dataset (250000+)**
 
 - Source: Kaggle
 - Mirror: Hugging Face
-- Format used for development: Parquet shards
-- Number of records: **365,448**
+- Development format: Parquet shards
+- Rows processed: **365,448**
 - Columns: `label`, `text`
 
 ### Label Mapping
 
-| Raw Label | Meaning | Application Label |
-|----------:|---------|-------------------|
+| Raw Label | Meaning | App Label |
+|---:|---|---|
 | `0` | Ham / legitimate message | Safe |
 | `1` | Phishing message | Phishing |
-| `2` | Unsolicited spam | Spam |
+| `2` | Spam | Spam |
 
 ### Class Balance
 
 | Class | Records | Share |
-|------|--------:|------:|
+|---|---:|---:|
 | Safe | 168,455 | 46.095477% |
 | Phishing | 42,845 | 11.723966% |
 | Spam | 154,148 | 42.180556% |
 
-**Important:** Phishing is the minority class, so stratified splitting and phishing-focused evaluation are required.
+**Important:** Phishing is the minority class, so stratified splitting and phishing-focused evaluation were necessary.
 
 ---
 
 ## 🧹 Data Quality Highlights
 
-- 2 missing text values
-- 84,490 duplicate full rows
-- 84,498 duplicate text values
-- 8 conflicting text-label groups involving 20 rows
-- Strong right-skew in message length
-- Extreme outliers up to 11,510,306 characters
+- Missing text values were handled
+- Duplicate rows were analyzed and documented
+- Conflicting label-text groups were inspected
+- Text length distribution was highly skewed
+- Extreme long-message outliers were documented
 
-These issues were documented in detail in `DATASET_NOTES.md`.
+For more detail, see `DATASET_NOTES.md`.
 
 ---
 
 ## 🔧 Preprocessing Strategy
 
-The preprocessing pipeline is designed to preserve security signals instead of stripping them away too aggressively.
+The preprocessing pipeline preserves phishing-relevant signals instead of removing them too aggressively.
 
-### Implemented handling includes:
+Implemented handling includes:
 
 - HTML removal
 - URL preservation as explicit tokens
 - Email preservation as explicit tokens
 - Numeric normalization
-- Punctuation and symbol cleanup
+- Punctuation cleanup
 - Stopword removal
 - Porter stemming
 - Unicode-safe processing
 - Missing input handling
 
-This ensures the model still learns from phishing-relevant patterns such as:
+This helps the model learn from patterns like:
+
 - suspicious URLs
-- urgent language
+- urgency language
 - account-related keywords
 - email/domain references
 - number-heavy requests
@@ -208,12 +208,11 @@ This ensures the model still learns from phishing-relevant patterns such as:
 
 Three classifiers were compared on the same TF-IDF feature space:
 
-- **Multinomial Naive Bayes**
-- **Logistic Regression**
-- **Random Forest**
+- Multinomial Naive Bayes
+- Logistic Regression
+- Random Forest
 
 ### Best Model Selected
-
 **Logistic Regression**
 
 It achieved the strongest balance between:
@@ -228,198 +227,157 @@ It achieved the strongest balance between:
 ## 📈 Model Performance
 
 | Model | Accuracy | Macro F1 | Weighted F1 | Phishing Precision | Phishing Recall | Phishing F1 |
-|------|----------:|---------:|------------:|-------------------:|----------------:|------------:|
+|---|---:|---:|---:|---:|---:|---:|
 | Multinomial Naive Bayes | 91.58% | 0.8893 | 0.9139 | 0.8921 | 0.7366 | 0.8069 |
 | **Logistic Regression** | **94.86%** | **0.9377** | **0.9489** | **0.8682** | **0.9355** | **0.9006** |
 | Random Forest | 91.29% | 0.9036 | 0.9136 | 0.8649 | 0.8781 | 0.8715 |
 
-### Why Logistic Regression Won
+---
 
-It delivered the best overall balance, especially for the **phishing class**, which is the most important label in this project.
+## 🔐 Threat Intelligence Logic
+
+The threat analyzer detects:
+
+- Suspicious URLs
+- Multiple URLs
+- Email addresses
+- Urgent language
+- Credential requests
+- Financial / banking terms
+- Excessive punctuation / capitalization
+
+The decision engine combines these results with the ML prediction to produce a final enterprise assessment such as:
+
+- Appears Legitimate
+- Likely Spam
+- Suspicious Spam
+- Possible False Positive
+- Suspicious Message
+- High Confidence Threat
+- Critical Threat
 
 ---
 
-## 📁 Generated Artifacts
+## 📷 Application Screenshots
 
-The training pipeline produces:
+### 🏠 Dashboard
+![Dashboard](images/_Dashboard.png)
 
-- `models/final_model.joblib`
-- `models/tfidf_vectorizer.joblib`
-- `models/final_pipeline.joblib`
-- `models/model_metadata.joblib`
+### ✅ Safe Message Input
+![Safe Message](images/_Safe_.png)
 
-It also generates analysis outputs under `visualizations/`:
+### 🛡️ Safe Analysis Result
+![Safe Result](images/_Safe_msg_res.png)
 
-- `confusion_matrix.png`
-- `model_comparison.csv`
-- `model_metrics.json`
-- `manual_predictions.json`
-- `phishing_false_negatives.csv`
+### ⚠️ Phishing Message Input
+![Phishing Message](images/Phishing_msg_.png)
 
----
+### 🚨 Phishing Analysis Result
+![Phishing Result](images/Phishing_msg_res.png)
 
-## 🧪 Testing
+### 📄 Generated PDF Report
+![PDF Report](images/Report_res.png)
 
-The preprocessing module is covered by lightweight tests for:
-
-- empty strings
-- missing input
-- whitespace-only messages
-- URLs
-- email addresses
-- numbers
-- punctuation-only input
-- mixed casing
-- Unicode text
-- realistic phishing messages
-
-These tests help ensure the preprocessing logic remains stable and deterministic.
-
----
 
 ## 🚀 Installation
-
-### 1. Clone the repository
 
 ```bash
 git clone <repository-url>
 cd CyberSec_Final_Project
-```
 
-### 2. Create and activate a virtual environment
-
-#### Windows
-
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
-
-#### macOS / Linux
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### 3. Install dependencies
-
-```bash
 pip install -r requirements.txt
 ```
 
-### 4. Run the Day 3–6 training pipeline
+---
 
+## ▶️ Running the Project
+
+### 1) Train and generate artifacts
 ```bash
 python scripts/run_days_3_6.py
 ```
 
----
-
-## 🖥️ How to Use
-
-### Train the models and generate artifacts
-
+### 2) Launch the Streamlit app
 ```bash
-python scripts/run_days_3_6.py
+streamlit run app/streamlit_app.py
 ```
 
-### Load the saved pipeline later
-
-The saved inference pipeline is designed for future integration into the application layer.
-
 ---
 
-## 📊 Outputs You Should Expect
+## 🧪 Example Test Cases
 
-After the training pipeline runs successfully, the repository should contain:
-
+### Safe
 ```text
-models/
-├── final_model.joblib
-├── final_pipeline.joblib
-├── model_metadata.joblib
-└── tfidf_vectorizer.joblib
+Hi Rahul,
 
-visualizations/
-├── confusion_matrix.png
-├── manual_predictions.json
-├── model_comparison.csv
-├── model_metrics.json
-└── phishing_false_negatives.csv
+Just a reminder that our meeting is tomorrow at 11:00 AM in Lab 3.
+Please bring the updated presentation and final documentation.
+```
+
+### Spam
+```text
+Congratulations!!
+
+You have won a FREE iPhone and a shopping voucher.
+Offer expires today.
+Click now to claim your reward.
+```
+
+### Phishing
+```text
+Dear Customer,
+
+Your bank account has been suspended.
+Verify immediately using the link below:
+https://secure-bank-login.xyz
+```
+
+### Confusing Edge Case
+```text
+Dear Customer,
+
+We noticed unusual activity on your account.
+Please do not click links in suspicious emails.
+Open your banking app directly or type the official website manually.
 ```
 
 ---
 
-## 🧩 Current Project Status
-
-### Completed
-- Day 1 — Project Foundation
-- Day 2 — Dataset Profiling
-- Day 3 — Data Cleaning & NLP Preprocessing
-- Day 4 — Feature Engineering & Baseline Model
-- Day 5 — Model Comparison & Selection
-- Day 6 — Evaluation & Artifact Saving
-
-### Remaining
-- Day 7 — Threat Analyzer
-- Day 8 — Recommendation Engine
-- Day 9 — Streamlit Application
-- Day 10 — Final Review, Documentation & Submission
-
----
-
-## 🔮 Future Scope
-
-Planned improvements after the current version:
-
-- Threat indicator scoring
-- Explainable AI keyword highlighting
-- Confidence score display
-- Email attachment scanning
-- URL reputation checking
-- Real-time web deployment
-- Streamlit Cloud deployment
-- Better visual analytics for phishing trends
-
----
-
-## 💡 Why This Project Stands Out
+## 📌 Why This Project Stands Out
 
 This is not just a basic spam classifier.
 
 It is designed to be:
 
-- **three-class** instead of binary
+- **three-class**
 - **phishing-aware**
 - **modular**
 - **reproducible**
 - **evaluation-driven**
 - **portfolio-friendly**
-- **deployment-ready**
+- **presentation-ready**
 
-That makes it much more interesting than a standard tutorial project.
-
----
-
-## 🧰 Tech Stack
-
-- **Python**
-- **Pandas**
-- **NumPy**
-- **Scikit-learn**
-- **NLTK**
-- **Matplotlib**
-- **Joblib**
-- **Streamlit** *(planned)*
-- **Pytest**
+That makes it much stronger than a standard tutorial project.
 
 ---
 
 ## 📚 Project Documentation
 
-- `PROJECT_LOG.md` — full day-by-day progress log
+- `PROJECT_LOG.md` — day-by-day development log
 - `DATASET_NOTES.md` — source, label mapping, data quality, and engineering decisions
+
+---
+
+## 🔮 Future Scope
+
+- BERT / Transformer-based classifier
+- Explainable AI with SHAP/LIME
+- URL reputation APIs
+- Attachment scanning
+- Browser extension
+- Multi-language support
+- Real-time email integration
+- Deployment on Streamlit Cloud
 
 ---
 
@@ -427,25 +385,21 @@ That makes it much more interesting than a standard tutorial project.
 
 **Your Name Here**
 
-- GitHub: `add-your-github-link`
-- LinkedIn: `add-your-linkedin-link`
-- Email: `add-your-email`
+- GitHub: `https://github.com/Dipto2611`
+- LinkedIn: `https://www.linkedin.com/in/dipto26`
+- Email: `diptaraj.ch.26@gmail.com`
 
 ---
 
 ## 📜 License
 
-This project is released under the **MIT License**.
+Developed for educational and academic purposes.
 
 ---
 
 ## ⭐ Final Note
 
-This repository follows a clean ML pipeline pattern: raw data → preprocessing → TF-IDF → model training → evaluation → saved pipeline. That makes it easy to test, explain, and extend into a full cybersecurity dashboard.
+This repository follows a clean ML pipeline pattern:
+raw data → preprocessing → TF-IDF → model training → evaluation → saved pipeline → threat intelligence → enterprise dashboard → PDF report.
 
----
-
-## 📌 Status Summary
-
-**Days 1–6:** Complete  
-**Days 7–10:** In progress
+That makes it easy to test, explain, extend, and present professionally.
