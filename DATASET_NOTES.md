@@ -171,3 +171,99 @@ and implementation requires approval after Day 3 cleaning decisions.
   the real class prevalence avoids misleading development results.
 - Impact on future development: Days 4 and 5 use this sample with stratified splits; Day 6
   validates the chosen final artifact against the complete cleaned dataset.
+
+
+---
+
+# Final Dataset Lifecycle Summary
+
+This section summarizes how the dataset evolved throughout the project lifecycle while preserving the integrity of the original source data.
+
+## Dataset Processing Timeline
+
+### Day 2 – Dataset Acquisition & Profiling
+- Acquired the locked three-class email dataset from the documented source.
+- Verified dataset integrity, schema, row counts, label mapping, and provenance.
+- Measured class distribution, text-length statistics, duplicate records, missing values, and memory usage.
+- Documented all engineering decisions related to dataset handling.
+
+### Day 3 – Data Cleaning & NLP Preprocessing
+- Removed duplicate records and handled missing text entries.
+- Preserved all valid class labels.
+- Implemented a reusable NLP preprocessing pipeline.
+- Standardized text normalization while preserving phishing-specific indicators such as URLs, email addresses, domain names, numeric tokens, and security-related keywords.
+
+### Days 4–6 – Feature Engineering & Model Development
+- Generated TF-IDF feature vectors from the cleaned dataset.
+- Performed stratified train-test splitting to preserve class distribution.
+- Trained multiple machine learning classifiers.
+- Selected Logistic Regression as the production model after comparative evaluation.
+- Generated reusable deployment artifacts including the trained model, preprocessing pipeline, and TF-IDF vectorizer.
+
+### Days 7–8 – Backend & Application Integration
+- Integrated the trained model into the prediction pipeline.
+- Connected the prediction engine with the Explainable Threat Analyzer.
+- Integrated the complete inference pipeline into the Streamlit web application.
+- Verified real-time predictions and explainable threat analysis using the trained model artifacts.
+
+### Days 9–10 – Repository Finalization
+- Performed final verification of the complete machine learning pipeline.
+- Verified end-to-end prediction workflow.
+- Reviewed repository organization and documentation.
+- Confirmed deployment artifacts required for inference are included.
+- Confirmed raw and processed datasets are intentionally excluded from version control.
+- Prepared the project for GitHub publication, portfolio presentation, and academic submission.
+
+---
+
+# Final Repository Dataset Policy
+
+The original raw dataset and intermediate processed datasets are intentionally excluded from the GitHub repository to keep the repository lightweight, maintainable, and easy to clone.
+
+The repository includes only the deployment-ready machine learning artifacts required for inference, including the trained model, preprocessing pipeline, TF-IDF vectorizer, and supporting metadata.
+
+This approach enables users to install the required Python dependencies and immediately run the application without downloading the original dataset or retraining the model.
+
+---
+
+# Dataset Reproducibility
+
+Anyone wishing to reproduce the complete training workflow should:
+
+1. Obtain the original dataset from the documented source.
+2. Follow the preprocessing pipeline implemented in this project.
+3. Generate TF-IDF features.
+4. Train the selected production model using the documented methodology.
+5. Save the deployment artifacts for inference.
+
+This ensures that the entire machine learning pipeline remains reproducible while keeping the public repository compact and focused on deployment.
+
+---
+
+# Final Verification Checklist
+
+- [x] Dataset source documented
+- [x] Provenance verified
+- [x] Label mapping verified
+- [x] Class distribution documented
+- [x] Data quality issues documented
+- [x] Engineering decisions recorded
+- [x] Sampling strategy documented
+- [x] Preprocessing strategy documented
+- [x] Feature engineering completed
+- [x] Model training completed
+- [x] Deployment artifacts generated
+- [x] Backend integration completed
+- [x] Repository dataset policy verified
+- [x] Raw datasets excluded from Git
+- [x] Processed datasets excluded from Git
+- [x] Repository ready for GitHub publication
+- [x] Ready for academic submission
+
+---
+
+## Final Status
+
+**Dataset Status:** Complete
+
+The dataset has successfully progressed from acquisition and verification through preprocessing, model development, deployment integration, and final repository preparation. All engineering decisions, quality observations, preprocessing policies, and repository guidelines have been documented. The project is considered complete and the dataset lifecycle is fully documented.
